@@ -1,0 +1,13 @@
+<body>
+  <%= form_with url: root_path, method: :get, local: true do |f| %>
+    <%= f.search_field :name %>
+    <%= f.submit 'Submit', class: "button" %>
+  <% end %>
+
+  <% if @facade %>
+    <h3>Merchants matching '<%= @facade.name %>'</h3>
+    <% @facade.merchant_by_name.each do |merchant| %>
+      <%= link_to merchant.name, merchant_path(merchant.id) %><br>
+    <% end %>
+  <% end %>
+</body>

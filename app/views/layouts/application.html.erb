@@ -5,12 +5,35 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
+    <link href='https://fonts.googleapis.com/css?family=Balsamiq Sans' rel='stylesheet'>
+    <style>
+      body {
+        font-family: 'Balsamiq Sans';
+        text-align: center;
+      }
+      
+      section {
+        height: 600px;
+        display: flex;
+        flex-direction: column;
+        flex-wrap: wrap;
+      }
+
+      .button {
+        font-family: 'Balsamiq Sans';
+        text-align: center;
+      }
+    </style>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
     <%= javascript_importmap_tags %>
   </head>
 
   <body>
+    <% flash.each do |type, notice| %>
+      <h3><b><%= notice %></b></h3>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
