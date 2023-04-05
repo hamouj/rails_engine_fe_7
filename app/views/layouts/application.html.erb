@@ -18,6 +18,11 @@
         flex-direction: column;
         flex-wrap: wrap;
       }
+
+      .button {
+        font-family: 'Balsamiq Sans';
+        text-align: center;
+      }
     </style>
 
     <%= stylesheet_link_tag "application", "data-turbo-track": "reload" %>
@@ -25,6 +30,10 @@
   </head>
 
   <body>
+    <% flash.each do |type, notice| %>
+      <h3><b><%= notice %></b></h3>
+    <% end %>
+
     <%= yield %>
   </body>
 </html>
