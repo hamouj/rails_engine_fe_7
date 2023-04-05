@@ -1,6 +1,7 @@
 class RailsEngineFacade
 
   def initialize(params)
+    @merchant_id = params[:id]
   end
 
   def service 
@@ -12,6 +13,14 @@ class RailsEngineFacade
 
     json[:data].map do |merchant_data|
       Merchant.new(merchant_data)
+    end
+  end
+
+  def merchant_items
+    json = service.merchant_items(@merchant_id)
+
+    json[:data].map do |item_data|
+      Item.new(item_data)
     end
   end
 end
