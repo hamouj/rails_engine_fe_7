@@ -8,6 +8,10 @@ class RailsEngineService
     get_url("/api/v1/merchants/#{merchant_id}/items")
   end
 
+  def get_item(item_id)
+    get_url("/api/v1/items/#{item_id}")
+  end
+
   def get_url(url)
     response = conn.get(url)
     JSON.parse(response.body, symbolize_names: true)

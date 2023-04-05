@@ -35,5 +35,25 @@ describe RailsEngineService do
         expect(item[:attributes][:name]).to be_a String
       end
     end
+
+    context 'get_item()' do
+      it 'returns information for a specific item' do
+        item = RailsEngineService.new.get_item(179)
+
+        expect(item).to be_a Hash
+
+        expect(item[:data][:attributes]).to have_key :name
+        expect(item[:data][:attributes][:name]).to be_a String
+
+        expect(item[:data][:attributes]).to have_key :description
+        expect(item[:data][:attributes][:description]).to be_a String
+
+        expect(item[:data][:attributes]).to have_key :unit_price
+        expect(item[:data][:attributes][:unit_price]).to be_a Float || Integer
+
+        expect(item[:data][:attributes]).to have_key :merchant_id
+        expect(item[:data][:attributes][:merchant_id]).to be_an Integer
+      end
+    end
   end
 end
