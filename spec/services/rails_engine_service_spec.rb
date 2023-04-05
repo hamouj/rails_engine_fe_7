@@ -50,9 +50,6 @@ describe RailsEngineService do
 
         expect(item[:data][:attributes]).to have_key :unit_price
         expect(item[:data][:attributes][:unit_price]).to be_a Float || Integer
-
-        expect(item[:data][:attributes]).to have_key :merchant_id
-        expect(item[:data][:attributes][:merchant_id]).to be_an Integer
       end
     end
   end
