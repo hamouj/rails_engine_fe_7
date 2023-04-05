@@ -36,6 +36,23 @@ describe RailsEngineService do
       end
     end
 
+    context 'all_items' do
+      it 'returns all items' do
+        all_items = RailsEngineService.new.all_items
+
+        expect(all_items).to be_a Hash
+        expect(all_items[:data]).to be_an Array
+
+        item = all_items[:data].first
+
+        expect(item).to have_key :id
+        expect(item[:id]).to be_a String
+        
+        expect(item[:attributes]).to have_key :name
+        expect(item[:attributes][:name]).to be_a String
+      end
+    end
+
     context 'get_item()' do
       it 'returns information for a specific item' do
         item = RailsEngineService.new.get_item(179)

@@ -28,6 +28,14 @@ class RailsEngineFacade
     end
   end
 
+  def all_items
+    json = service.all_items
+
+    json[:data].map do |item_data|
+      Item.new(item_data)
+    end
+  end
+
   def item
     json = service.get_item(@item_id)
 

@@ -1,0 +1,13 @@
+<body>
+  <header>
+    <h1>Items</h1>
+  </header>
+    
+  <section class="items">
+    <% @facade.all_items.each do |item| %>
+      <div id="item-<%= item.id %>">
+        <%= link_to item.name, item_path(item.id) %>
+      </div>
+    <% end %>
+  </section>
+</body>
