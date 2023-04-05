@@ -4,5 +4,6 @@ class MerchantsController < ApplicationController
   end
 
   def show
+    @facade = RailsEngineFacade.new(params)
   end
 end

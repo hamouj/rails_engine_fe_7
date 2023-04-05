@@ -1,5 +1,6 @@
 class RailsEngineFacade
-
+  attr_reader :merchant_id
+  
   def initialize(params)
     @merchant_id = params[:id]
   end
