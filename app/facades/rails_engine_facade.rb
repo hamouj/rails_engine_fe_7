@@ -44,7 +44,7 @@ class RailsEngineFacade
 
   def merchant_by_name
     all_merchants.select do |merchant|
-      merchant.name.include?(@name)
+      merchant.name.downcase.include?(@name.downcase)
     end
   end
 end

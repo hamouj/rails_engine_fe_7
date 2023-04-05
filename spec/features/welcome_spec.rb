@@ -30,6 +30,15 @@ describe 'Welcome Page' do
         expect(page).to have_link('Schroeder-Jerde')
       end
 
+      it 'returns case insensitive matches' do
+        fill_in :name, with: 'ERdE'
+        click_button 'Submit'
+
+        expect(page).to have_link('Schroeder-Jerde')
+        expect(page).to have_link('Koch, Wolf and Jerde')
+        expect(page).to have_link('Rice, Jerde and White')
+      end
+
       it 'when there are no matches, it returns a message' do
         fill_in :name, with: 'Zykl;klj'
         click_button 'Submit'
