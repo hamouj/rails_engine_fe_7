@@ -2,12 +2,12 @@ require 'rails_helper'
 
 describe 'Merchant Show Page' do
   describe 'As a visitor' do
-    context 'When I visit /merchants/:id' do
+    context 'When I visit /merchants/:merchant_id' do
       before(:each) do
         merchants = RailsEngineFacade.new({}).all_merchants
         @merchant1 = merchants.first
 
-        items = RailsEngineFacade.new({id: 1}).merchant_items
+        items = RailsEngineFacade.new({merchant_id: 1}).merchant_items
         @item1 = items.first
         @item2 = items.last
       end
