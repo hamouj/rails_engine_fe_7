@@ -8,8 +8,14 @@ describe RailsEngineFacade do
   end
 
   it 'creates Item poros for merchant_items' do
-    items = RailsEngineFacade.new({id: 1}).merchant_items
+    items = RailsEngineFacade.new({merchant_id: 1}).merchant_items
 
     expect(items.first).to be_an Item
+  end
+
+  it 'creates a single Item poro for an item' do
+    item = RailsEngineFacade.new({item_id: 4}).item
+
+    expect(item).to be_an Item
   end
 end

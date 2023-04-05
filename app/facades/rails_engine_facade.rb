@@ -1,8 +1,9 @@
 class RailsEngineFacade
   attr_reader :merchant_id
-  
+
   def initialize(params)
-    @merchant_id = params[:id]
+    @merchant_id = params[:merchant_id]
+    @item_id = params[:item_id]
   end
 
   def service 
@@ -23,5 +24,11 @@ class RailsEngineFacade
     json[:data].map do |item_data|
       Item.new(item_data)
     end
+  end
+
+  def item
+    json = service.get_item(@item_id)
+
+    Item.new(json[:data])
   end
 end
