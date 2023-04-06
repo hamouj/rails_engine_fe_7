@@ -4,12 +4,14 @@ describe 'Item Index Page' do
   describe 'As a visitor' do
     context 'When I visit /items' do
       before(:each) do
-        items = RailsEngineFacade.new({}).all_items
+        VCR.use_cassette('all_items', serialize_with: :json, allow_playback_repeats: true) do
+          items = RailsEngineFacade.new({}).all_items
 
-        @item1 = items.first
-        @item2 = items.last
+          @item1 = items.first
+          @item2 = items.last
 
-        visit items_path
+          visit items_path
+        end
       end
 
       it 'lists all items' do
