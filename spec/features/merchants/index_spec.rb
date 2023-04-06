@@ -4,11 +4,13 @@ describe 'Merchant Index Page' do
   describe 'As a visitor' do
     context 'When I visit /merchants' do
       before(:each) do
-        merchants = RailsEngineFacade.new({}).all_merchants
-        @merchant1 = merchants.first
-        @merchant2 = merchants.last
+        VCR.use_cassette('all_merchants', serialize_with: :json, allow_playback_repeats: true) do
+          merchants = RailsEngineFacade.new({}).all_merchants
+          @merchant1 = merchants.first
+          @merchant2 = merchants.last
 
-        visit merchants_path
+          visit merchants_path
+        end
       end
 
       it 'I see a list of merchants by name' do
@@ -22,9 +24,11 @@ describe 'Merchant Index Page' do
       end
 
       it "When I click the merchant's name, I am redirect to the merchant's show page" do
-        click_link @merchant1.name
+        VCR.use_cassette('merchant_items', serialize_with: :json, allow_playback_repeats: true) do
+          click_link @merchant1.name
 
-        expect(current_path).to eq(merchant_path(@merchant1.id))
+          expect(current_path).to eq(merchant_path(@merchant1.id))
+        end
       end
     end
   end

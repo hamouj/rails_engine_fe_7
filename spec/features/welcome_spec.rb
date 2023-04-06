@@ -14,48 +14,60 @@ describe 'Welcome Page' do
       end
 
       it 'when I type in a partial name, it returns a list of matching merchants' do
-        fill_in :name, with: 'erde'
-        click_button 'Submit'
+        VCR.use_cassette('all_merchants', serialize_with: :json, allow_playback_repeats: true) do
+          fill_in :name, with: 'erde'
+          click_button 'Submit'
 
-        expect(current_path).to eq(root_path)
-        expect(page).to have_link('Schroeder-Jerde')
-        expect(page).to have_link('Koch, Wolf and Jerde')
-        expect(page).to have_link('Rice, Jerde and White')
+          expect(current_path).to eq(root_path)
+          expect(page).to have_link('Schroeder-Jerde')
+          expect(page).to have_link('Koch, Wolf and Jerde')
+          expect(page).to have_link('Rice, Jerde and White')
+        end
       end
 
       it 'when I type a complete name, it returns the merchant' do
-        fill_in :name, with: 'Schroeder-Jerde'
-        click_button 'Submit'
+        VCR.use_cassette('all_merchants', serialize_with: :json, allow_playback_repeats: true) do
+          fill_in :name, with: 'Schroeder-Jerde'
+          click_button 'Submit'
 
-        expect(page).to have_link('Schroeder-Jerde')
+          expect(page).to have_link('Schroeder-Jerde')
+        end
       end
 
       it 'returns case insensitive matches' do
-        fill_in :name, with: 'ERdE'
-        click_button 'Submit'
+        VCR.use_cassette('all_merchants', serialize_with: :json, allow_playback_repeats: true) do
+          fill_in :name, with: 'ERdE'
+          click_button 'Submit'
 
-        expect(page).to have_link('Schroeder-Jerde')
-        expect(page).to have_link('Koch, Wolf and Jerde')
-        expect(page).to have_link('Rice, Jerde and White')
+          expect(page).to have_link('Schroeder-Jerde')
+          expect(page).to have_link('Koch, Wolf and Jerde')
+          expect(page).to have_link('Rice, Jerde and White')
+        end
       end
 
       it 'when there are no matches, it returns a message' do
-        fill_in :name, with: 'Zykl;klj'
-        click_button 'Submit'
+        VCR.use_cassette('all_merchants', serialize_with: :json, allow_playback_repeats: true) do
+          fill_in :name, with: 'Zykl;klj'
+          click_button 'Submit'
 
-        expect(page).to have_content('No matches found')
+          expect(page).to have_content('No matches found')
+        end
       end
 
       it 'when I click on a name, I am taken to the merchant show page' do
-        fill_in :name, with: 'erde'
-        click_button 'Submit'
+        VCR.use_cassette('all_merchants', serialize_with: :json, allow_playback_repeats: true) do
+          fill_in :name, with: 'erde'
+          click_button 'Submit'
 
-        merchants = RailsEngineFacade.new({name: 'erde'}).merchant_by_name
-        merchant1 = merchants.first
+          merchants = RailsEngineFacade.new({name: 'erde'}).merchant_by_name
+          @merchant1 = merchants.first
+        end
 
-        click_link 'Schroeder-Jerde'
+        VCR.use_cassette('schroeder_jerde', serialize_with: :json) do
+          click_link 'Schroeder-Jerde'
 
-        expect(current_path).to eq(merchant_path(merchant1.id))
+          expect(current_path).to eq(merchant_path(@merchant1.id))
+        end
       end
     end
   end
